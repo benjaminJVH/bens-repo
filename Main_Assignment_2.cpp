@@ -1,6 +1,7 @@
 #include <iostream>
 #include <array>
 #include <string>
+#include "WordArray.h"
 
 using namespace std;
 
@@ -10,10 +11,12 @@ bool userInputCheck(string&, bool&);
 int wordCounterTracker(bool&, int&);
 void displayArray();
 
+WordArray obj_WordArray;
 int const MAX_CHAR_LIMIT = 21;
 
+
 int main() {
-	cout << "\n\n\t\t\t\tASSIGNMENT 2\n\t\t\tby Group 2: Dustin B. & Benjamin V.\n";
+	cout << "\n\n\t\t\t\tASSIGNMENT 2\n\tBrought to you by Group 2: Dustin 'D-dawg' B. & Ben'jamin' V.\n";
 	mainMenu();
 	return 0;
 }
@@ -24,12 +27,12 @@ void mainMenu() {
 	bool mainMenuInput, userInput;
 
 	choice = -1;
-	input = "";	
+	input = "";
 	wordCount = 12;
 	mainMenuInput = false;
 	userInput = false;
 
-	cout << "\n\tWelcome to the Word Array Program";
+	cout << "\n\t\t\tWelcome to the Word Array Program";
 	cout << "\n\tPlease choose option by entering the coordinating number\n";
 
 	do {
@@ -55,12 +58,15 @@ void mainMenu() {
 					pluarl = "word";
 				}
 				else {
-					pluarl = "words";					
+					pluarl = "words";
 				}
 
 				cout << "\nAdd 12 words to the Word Array (21 char limit) " << "\t\t" << wordCount << " " << pluarl << " remaining\nWord: ";
 				cin >> input;
 				userInputCheck(input, userInput);
+				if (userInput) {
+					obj_WordArray.toWordArray(input, wordCount);
+				}
 			}
 			break;
 
@@ -138,3 +144,20 @@ void displayArray() {
 int wordCounterTracker(bool& userInput, int& wordCount) {
 	if (userInput) wordCount--; return wordCount;
 }
+
+
+
+/*
+
+Assignment Details
+
+•	Use at least on class
+•	Read a list of 12 words into an array
+•	Prompt the user for which word in the array to display
+•	Use a command line argument to present the user with information about your program.
+•	Exit the program on user request
+
+
+
+
+*/
