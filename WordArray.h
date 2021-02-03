@@ -5,8 +5,6 @@
 //Date: 02/01/2021
 
 
-
-
 #ifndef WORDARRAY_H
 #define WORDARRAY_H
 #include <string>
@@ -20,21 +18,12 @@ private:
 
 public:
 
-	// fun decs
+	// functions decs
 
+	// view array contents functions
 
-	//read to array fun
-
-	void toWordArray(string input, int wordCount);
-
-	// view array contents fun
-
-	string viewArray(int wordCount);
-
-	// delete array elements
-
-	void delArrayElements(int userChoice);
-
+	void viewArray(string array[], int size);
+	void viewArray(int& choice, string array[], int size);
 };
 #endif // !WORDARRAY.H
 
