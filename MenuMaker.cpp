@@ -1,18 +1,22 @@
 #include "MenuMaker.h"
 #include <string>
-#include <array>
+
 using namespace std;
 
 void MenuMaker::makeMenu(const string menuTitle, const char* charMenuOptions[], const int* numOptions)
 {
+	int optionNum = *numOptions;
 
-	cout << menuTitle << endl;
-	for (int i = 0; i < 4; i++) {
-		cout << " " << i << " " << charMenuOptions[i] << "\n";
+	cout << "\t\t" << menuTitle << "\n" << endl;
+	for (int i = 0, x = 1; i < optionNum; i++, x++) {
+		if (x >= optionNum) {
+			x = 0;			
+		}
+		cout << " " << x << " " << charMenuOptions[x] << "\n";
 	}
-	cout << " <: ";
 	
-	cout << "\n\t\t\t this is the optionSize: " << *numOptions << endl;
+	cout << "\n <: ";	
+	
 }
 
 /*
