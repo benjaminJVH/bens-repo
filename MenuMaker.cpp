@@ -3,20 +3,32 @@
 
 using namespace std;
 
-void MenuMaker::makeMenu(const string menuTitle, const char* charMenuOptions[], const int* numOptions)
-{
-	int optionNum = *numOptions;
+void MenuMaker::makeMenu(const bool ignoreZero, const string menuTitle, const char* charMenuOptions[], const int* numOptions) {
+	int options = *numOptions;
+	int displMenu = 0;
+	int igZero = 0;
+
+	if (ignoreZero) {
+		displMenu = 1;
+		igZero = 1;
+	}
+	else {
+		options += 1;
+		displMenu = 0;
+		igZero = 1;
+	}
 
 	cout << "\t\t" << menuTitle << "\n" << endl;
-	for (int i = 0, x = 1; i < optionNum; i++, x++) {
-		if (x >= optionNum) {
-			x = 0;			
+	for (int i = 0, x = 1; i < *numOptions; i++, x++, displMenu++) {
+		if (!ignoreZero) {
+			if (x >= options) {
+				x = 0;
+			}
 		}
-		cout << " " << x << " " << charMenuOptions[x] << "\n";
+
+		cout << " " << displMenu << " " << charMenuOptions[x - igZero] << "\n";
 	}
-	
-	cout << "\n <: ";	
-	
+	cout << "\n <: ";
 }
 
 /*
