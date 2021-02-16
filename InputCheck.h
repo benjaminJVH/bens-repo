@@ -6,12 +6,11 @@ using namespace std;
 
 class InputCheck {
 
-public:
-	//bool intInputCheck(bool& ignorZero, int choice, int* numOptions, bool& intLoop);
+public:	
 
-	bool intInputCheck(bool& intLoop, int userInput, const int* numOptions);
-
-	//bool stringInputCheck(string& input, int* numOptions, bool& stringLoop);
+	bool intInputCheck(bool& intLoop, const bool ignoreOptionZero, int& intUserInput, const int* numOptions, string errorMessage_1);
+	bool stringInputCheck(string& input, int* numOptions, bool& stringLoop);
+	bool strIgnoreError(bool& rtnIntLoop, int& intUserInput, bool& skipOptionItr);
 
 
 };

@@ -4,69 +4,49 @@
 #include <iostream>
 using namespace std;
 
+bool InputCheck::intInputCheck(bool& intLoop, const bool ignoreOptionZero, int& intUserInput, const int* numOptions, string errorMessage_1) {
 
+	int optionZero = 0;
+	int numSize = *numOptions;
+	bool skip = false;
+	bool* skipOptionItr = &skip;
+	bool* rtnIntLoop = &intLoop;
 
-bool InputCheck::intInputCheck(bool& intLoop, int intUserInput, const int* numOptions) {
-
-	bool *rtnIntLoop = &intLoop;
-	if (cin.fail()) {
-		cin.clear();
-		string ignoreError;
-		getline(cin, ignoreError);
-		*rtnIntLoop = false;
+	if (ignoreOptionZero) {
+		optionZero = 1;
+		numSize += 1;
 	}
 	else {
-		for (int i = 0; i < *numOptions; i++) {
-			if (i == intUserInput) {
+		optionZero = 0;
+	}
+
+	strIgnoreError(*rtnIntLoop, intUserInput, *skipOptionItr);
+
+	if (!*skipOptionItr) {
+		for (; optionZero < numSize; optionZero++) {
+			if (optionZero == intUserInput) {
 				*rtnIntLoop = true;
 				return rtnIntLoop;
 			}
-		}		
-		
+		}
 	}
-	cout << "\n\tInvalid Entry.  Please choose available options.\n\n";
+
+
+	cout << "\n\t" << errorMessage_1 << "\n\n";
 	return rtnIntLoop;
 }
 
-//bool intMenuInputCheck(bool& ignoreZero, int* numOptions, int intChoice, bool& intMenuInput) {
-//	int check = intChoice;
-//	if (cin.fail()) {
-//		cin.clear();
-//		string ignoreError;
-//		getline(cin, ignoreError);
-//	}	
-//	else if (check != 0 && check != 1 && check != 2 && check != 3) {
-//		intMenuInput = false;		// redundant, keeping this here anyway for looks
-//	}
-//	else {
-//		intMenuInput = true;
-//		return intMenuInput;
-//	}
-//	cout << "\n\tInvalid input\nPlease choose only available numbers\n";
-//	intMenuInput = false;
-//	return intMenuInput;
-//}
-//
-//
-//// second part of first error handling for mainmenu interface - overloaded function
-//bool intMenuInputCheck(int choice, bool& intMenuInput, bool& choiceCheck) {
-//	int check = choice;
-//	if (cin.fail()) {
-//		cin.clear();
-//		string ignoreError;
-//		getline(cin, ignoreError);
-//	}
-//	else if (check < 0 || check > 12) {
-//		intMenuInput = false;		// redundant, keeping this here anyway for looks
-//	}
-//	else {
-//		intMenuInput = true;
-//		return intMenuInput;
-//	}
-//	cout << "\n\tInvalid input\nPlease choose only available numbers\n";
-//	intMenuInput = false;
-//	return intMenuInput;
-//}
+bool InputCheck::strIgnoreError(bool& rtnIntLoop, int& intUserInput, bool& skipOptionItr) {
+
+	if (cin.fail()) {
+		skipOptionItr = true;
+		cin.clear();
+		string ignoreError;
+		getline(cin, ignoreError);
+		rtnIntLoop = false;
+		return skipOptionItr;
+	}
+}
 //
 //// second unique error handling for swtich cases -
 //bool userInputCheck(string& input, bool& userInput) {

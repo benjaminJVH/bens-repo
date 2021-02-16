@@ -10,6 +10,6 @@ class MenuMaker
 {
 
 public:
-    void makeMenu(const bool ignoreZero, const string menuTitle, const char* charMenuOptions[], const int* numOptions);
+	void makeMenu(const bool ignoreOptionZero, const string menuTitle, const char* charMenuOptions[], const int* numOptions);
 };
 #endif
