@@ -1,71 +1,72 @@
 #include "MenuMaker.h"
+#include "ProgramControls.h"
 #include <string>
 #include <iostream>
 
 using namespace std;
 
-void MenuMaker::makeMenu(const bool ignoreOptionZero, const string menuTitle, const char* charMenuOptions[], const int* numOptions) {
-	int options = *numOptions;
-	int displMenu = 0;
-	int igZero = 0;
+ProgramControls newProgram;
 
-	if (ignoreOptionZero) {
-		displMenu = 1;
-		igZero = 1;
+int start_count = -1;
+int counter;
+void MenuMaker::menuStart(int menuNum, int crtlNum) {
+	string menu = newProgram.menuDescr(menuNum);
+	int controlNum = newProgram.omitNumber(crtlNum);
+	string replacementNum = "";
+	if (controlNum != 0) {
+		replacementNum = newProgram.replaceOmitNum();
 	}
-	else {
-		options += 1;
-		displMenu = 0;
-		igZero = 1;
-	}
+	
+	makeMenu(menu, controlNum, replacementNum);
+}
 
-	cout << "\t\t" << menuTitle << "\n" << endl;
-	for (int i = 0, x = 1; i < *numOptions; i++, x++, displMenu++) {
-		if (!ignoreOptionZero) {
-			if (x >= options) {
-				x = 0;
-			}
+void MenuMaker::makeMenu(string menu, int omitNumber, string replacementNum) {
+	counter = start_count;
+	string menuRead = menu;
+	string delim = ",";
+	string item = "Nothing";	
+	int start, end, s_Int, e_Int, omit;	
+	int menuLen = menuRead.length();
+	start = 0;
+	end = start;
+	omit = omitNumber;
+	size_t menuItemCounter = start;
+
+	for (int i = 0; i < 1 + menuLen; i++) {
+		menuItemCounter = menuRead.find(",", start);
+		s_Int = menuItemCounter;
+		e_Int = s_Int;
+
+		if (menuItemCounter > menuLen) {
+			break;
 		}
-
-		cout << " " << displMenu << " " << charMenuOptions[x - igZero] << "\n";
+		else {
+			counter++;
+			end = e_Int - start;
+			item = menuRead.substr(start, end);
+			menuFormatter(counter, item, omit, replacementNum);
+		}
+		start = s_Int += 1;
 	}
-	cout << "\n <: ";
+	optionsNum();
 }
 
-/*
+int MenuMaker::optionsNum() {
+	int numOptions = counter;	
+	return  numOptions;
+}
 
-
-bool ErrorCatcher::userInputCheck(string& input, bool& userInput) {
-	string wordError;
-	int const MAX_CHAR_LIMIT = 21;
-	int wordLength;
-	int limitExceeded;
-
-	getline(cin, wordError);
-	wordLength = input.length();
-	limitExceeded = (wordLength - MAX_CHAR_LIMIT);
-
-	for (int i = 0; i < wordError.length(); i++) {
-		if (isspace(wordError.at(i))) {
-			cout << "\nOne word at a time! Please re-enter word." << endl;
-			userInput = false;
-			return userInput;
+void MenuMaker::menuFormatter(int counter, string item, int omit, string replacementNum) {
+	if (!counter <= 0) {
+		if (counter == omit) {
+			cout << " " << replacementNum <<": " << item << endl;
+		}
+		else {
+			cout << " " << counter << ": " << item << endl;
 		}
 	}
 
-	if (input.length() > MAX_CHAR_LIMIT) {
-		cout << "\nYou exceeded the 21 maximum character limit by " << limitExceeded << "!" << endl;
-	}
 	else {
-		userInput = true;
-		return userInput;
+		cout << "\n\t\t\t" << item << "\n" << endl;
 	}
-	userInput = false;
-	return userInput;
 }
-int ErrorCatcher::wordCounterTracker(bool& userInput, int& wordCount) {
-	if (userInput) wordCount++; return wordCount;
-}
-
-
-*/
