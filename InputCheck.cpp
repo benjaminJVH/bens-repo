@@ -4,21 +4,19 @@
 #include <iostream>
 using namespace std;
 
-bool InputCheck::intInputCheck(bool& intLoop, int& intUserInput, int numOptions, string errorMessage_1) {
-
-	int optionZero = 0;
+bool InputCheck::intInputCheck(bool& intLoop, int& intUserInput, int numOptions, int startingOption, string errorMessage_1) {
+	cout << "startingOption = " << startingOption << endl;
 	int numSize = numOptions;
 	bool skip = false;
 	bool* skipOptionItr = &skip;
-	bool* rtnIntLoop = &intLoop;
-
-	
+	bool* rtnIntLoop = &intLoop;	
 
 	strIgnoreError(*rtnIntLoop, intUserInput, *skipOptionItr);
+	cout << "\n\t\nnum size: " << numSize << endl;
 
 	if (!*skipOptionItr) {
-		for (; optionZero < numSize; optionZero++) {
-			if (optionZero == intUserInput) {
+		for (; startingOption <= numSize; startingOption++) {
+			if (startingOption == intUserInput) {
 				*rtnIntLoop = true;
 				return rtnIntLoop;
 			}

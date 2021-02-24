@@ -9,24 +9,30 @@ ProgramControls PCProgram;
 InputCheck newInt_InputCheck;
 MenuMaker executeMenu;
 
-void executeProgram(string);
+void executeProgram();
 
 int main(int argc, char* argv[]) {
-	string icon = "\n <:";
-	executeProgram(icon);
+	
+	executeProgram();
 	return 0;
 }
 
-void executeProgram(string icon) {
+void executeProgram() {
 	int intUserInput = -1;
-	bool intLoop = PCProgram.loops(1);
-	string sendErrorMessage = PCProgram.errorMessages(1);
+	int menuNum = 3;  // menus 0 - 3 are currently available: option 0 is styled for main menu
+	int optionOmit = 0; // enter an option number to omit it and replace with a string;  see program controls omi
+	int startingOption = 3;
+	bool intLoop = PCProgram.loops(1); // see program controls for addt'l looping options
+	string sendErrorMessage = PCProgram.errorMessages(1); // see program controls for addt'l error messaging
+	string icon = PCProgram.iconSelector(1); // choose between 1, 2, 3 styled input icon
+
 	do {
-		PCProgram.startPCProgram();
+		PCProgram.startPCProgram(menuNum, optionOmit);
 		int numOptions = executeMenu.optionsNum();
 		cout << icon;
 		cin >> intUserInput;
-		newInt_InputCheck.intInputCheck(intLoop, intUserInput, numOptions, sendErrorMessage);
+		
+		newInt_InputCheck.intInputCheck(intLoop, intUserInput, numOptions,startingOption, sendErrorMessage);
 	} while (!intLoop);
 
 }

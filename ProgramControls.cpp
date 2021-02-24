@@ -7,18 +7,18 @@ using namespace std;
 
 MenuMaker newMenu;
 
-void ProgramControls::startPCProgram() {
-	newMenu.menuStart(0, 0); // enter the menu by number and option to omit and / or not replace
+void ProgramControls::startPCProgram(int menuNum, int optionOmit) {
+	newMenu.menuStart(menuNum, optionOmit); // enter the menu by number and option to omit and / or not replace
 }
 
 
 string ProgramControls::menuDescr(int menuNum) {
 	string menu;
-	string mainMenu = "WELCOME TO THE FORTUNE TELLER 5000,Profile Menu," // 0
+	string mainMenu = "WELCOME TO THE FORTUNE TELLER 5000,Profile Menu," // 0 - Zero is always Menu header
 		"Admin Menu,About Program,Exit Program,";
 	string ProfileMenu = "PROFILE MENU,Enter your name,Enter date of birth,Enter your favorite number,"; // 1
 	string AdminMenu = "ADMIN MENU,Add Fortune,Remove Fortune,View Fortune(s),"; // 2
-	string AboutProgramMenu = "ABOUT PROGRAM,This Program is your program, this program is my program, this program was made for you and me,"; //3
+	string AboutProgramMenu = "ABOUT PROGRAM,This Program is your program,this program is my program,this program was made for you and me,"; //3
 
 	if (menuNum == 0) {
 		menu = mainMenu;
@@ -33,7 +33,8 @@ string ProgramControls::menuDescr(int menuNum) {
 		menu = AboutProgramMenu;
 	}
 	else {
-		menu = "No descriptive menu entered.";
+		cout << "\n\t\t\tNo descriptive menu entered.\n\n\t\t\tProgram will now close.\n";
+		exit(0);
 	}
 
 	return menu;
@@ -52,12 +53,26 @@ string ProgramControls::errorMessages(int errNum) {
 		errMessage = strErrorMessage_1;
 	}
 	else {
-		errMessage = "No descriptive message entered";
+		errMessage = "No descriptive message entered.,";
+
 	}
 
 	return errMessage;
 }
 
+string ProgramControls::iconSelector(int iconSelect) {
+	string iconSelected;
+	if (iconSelect == 1) {
+		iconSelected = "\n <:";
+	}
+	else if (iconSelect == 2) {
+		iconSelected = "\n ->";
+	}
+	else {
+		iconSelected = "\n [";
+	}
+	return iconSelected;
+}
 
 int ProgramControls::omitNumber(int intOmit) {
 	int controlNum;
@@ -66,6 +81,11 @@ int ProgramControls::omitNumber(int intOmit) {
 
 	return controlNum;
 }
+
+//int ProgramControls::startingIntOption(int optionStart) {
+//	int startingOption = 1;
+//	return startingOption;
+//}
 
 string ProgramControls::replaceOmitNum() {
 	string numReplacement = "ZOINKS";

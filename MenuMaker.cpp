@@ -59,7 +59,7 @@ int MenuMaker::optionsNum() {
 void MenuMaker::menuFormatter(int counter, string item, int omit, string replacementNum) {
 	if (!counter <= 0) {
 		if (counter == omit) {
-			cout << " " << replacementNum <<": " << item << endl;
+			cout << " " << replacementNum << ": " << item << endl;
 		}
 		else {
 			cout << " " << counter << ": " << item << endl;
