@@ -9,35 +9,37 @@ ProgramControls newProgram;
 
 int start_count = -1;
 int counter;
-void MenuMaker::menuStart(int menuNum, int crtlNum) {
-	string menu = newProgram.menuDescr(menuNum);
+void MenuMaker::menuStart(int menuNum, int crtlNum, bool backMenu) {
+	
+	string menu = newProgram.menuDescr(menuNum, backMenu);
 	int controlNum = newProgram.omitNumber(crtlNum);
 	string replacementNum = "";
 	if (controlNum != 0) {
-		replacementNum = newProgram.replaceOmitNum();
+		replacementNum = newProgram.replaceOmitNum(1);
 	}
-	
-	makeMenu(menu, controlNum, replacementNum);
+
+	makeMenu(menu, controlNum, replacementNum, backMenu);
 }
 
-void MenuMaker::makeMenu(string menu, int omitNumber, string replacementNum) {
+void MenuMaker::makeMenu(string menu, int omitNumber, string replacementNum, bool backMenu) {
 	counter = start_count;
 	string menuRead = menu;
 	string delim = ",";
-	string item = "Nothing";	
-	int start, end, s_Int, e_Int, omit;	
+	string item = "Nothing";
+	int start, end, s_Int, e_Int, omit, goBack;
 	int menuLen = menuRead.length();
 	start = 0;
 	end = start;
 	omit = omitNumber;
 	size_t menuItemCounter = start;
-
+	
 	for (int i = 0; i < 1 + menuLen; i++) {
 		menuItemCounter = menuRead.find(",", start);
 		s_Int = menuItemCounter;
-		e_Int = s_Int;
+		e_Int = s_Int;		
 
 		if (menuItemCounter > menuLen) {
+			backMenu = true;			
 			break;
 		}
 		else {
@@ -52,14 +54,14 @@ void MenuMaker::makeMenu(string menu, int omitNumber, string replacementNum) {
 }
 
 int MenuMaker::optionsNum() {
-	int numOptions = counter;	
+	int numOptions = counter;
 	return  numOptions;
 }
 
-void MenuMaker::menuFormatter(int counter, string item, int omit, string replacementNum) {
+void MenuMaker::menuFormatter(int counter, string item, int omit, string replacementStr) {
 	if (!counter <= 0) {
 		if (counter == omit) {
-			cout << " " << replacementNum << ": " << item << endl;
+			cout << " " << replacementStr << " " << item << endl;
 		}
 		else {
 			cout << " " << counter << ": " << item << endl;

@@ -4,27 +4,27 @@
 #include <iostream>
 using namespace std;
 
-bool InputCheck::intInputCheck(bool& intLoop, int& intUserInput, int numOptions, int startingOption, string errorMessage_1) {
-	cout << "startingOption = " << startingOption << endl;
+int InputCheck::intInputCheck(bool& intLoop, int& intUserInput, int numOptions, int startingOption, string errorMessage_1, bool &backMenu) {	
 	int numSize = numOptions;
 	bool skip = false;
 	bool* skipOptionItr = &skip;
-	bool* rtnIntLoop = &intLoop;	
+	bool* rtnIntLoop = &intLoop;
 
-	strIgnoreError(*rtnIntLoop, intUserInput, *skipOptionItr);
-	cout << "\n\t\nnum size: " << numSize << endl;
-
+	strIgnoreError(*rtnIntLoop, intUserInput, *skipOptionItr);	
 	if (!*skipOptionItr) {
 		for (; startingOption <= numSize; startingOption++) {
 			if (startingOption == intUserInput) {
-				*rtnIntLoop = true;
-				return rtnIntLoop;
+				*rtnIntLoop = false;
+				return intUserInput;
+			}else if(backMenu){
+				//exit(0);
+				return 0;
 			}
 		}
 	}
 
 	cout << "\n\t" << errorMessage_1 << "\n\n";
-	return rtnIntLoop;
+	return intUserInput;
 }
 
 bool InputCheck::strIgnoreError(bool& rtnIntLoop, int& intUserInput, bool& skipOptionItr) {
@@ -41,7 +41,7 @@ bool InputCheck::strIgnoreError(bool& rtnIntLoop, int& intUserInput, bool& skipO
 
 //second unique error handling for swtich cases
 
-bool InputCheck::stringInputCheck(string& strUserInput, int numOptions, bool& stringLoop, const int* MAX_CHAR_LIMIT, 
+bool InputCheck::stringInputCheck(string& strUserInput, int numOptions, bool& stringLoop, const int* MAX_CHAR_LIMIT,
 	const string strErrorMessage_1) {
 	string wordError;
 	int wordLength;

@@ -7,34 +7,43 @@ using namespace std;
 
 MenuMaker newMenu;
 
-void ProgramControls::startPCProgram(int menuNum, int optionOmit) {
-	newMenu.menuStart(menuNum, optionOmit); // enter the menu by number and option to omit and / or not replace
+void ProgramControls::startPCProgram(int menuNum, int optionOmit, bool &backMenu) {
+	newMenu.menuStart(menuNum, optionOmit, &backMenu);
 }
 
 
-string ProgramControls::menuDescr(int menuNum) {
+string ProgramControls::menuDescr(int menuNum, bool &backMenu) {
 	string menu;
 	string mainMenu = "WELCOME TO THE FORTUNE TELLER 5000,Profile Menu," // 0 - Zero is always Menu header
 		"Admin Menu,About Program,Exit Program,";
-	string ProfileMenu = "PROFILE MENU,Enter your name,Enter date of birth,Enter your favorite number,"; // 1
-	string AdminMenu = "ADMIN MENU,Add Fortune,Remove Fortune,View Fortune(s),"; // 2
-	string AboutProgramMenu = "ABOUT PROGRAM,This Program is your program,this program is my program,this program was made for you and me,"; //3
+	string ProfileMenu = "PROFILE MENU,Enter your name,Enter date of birth,Enter your favorite number,go back,"; // 1
+	string AdminMenu = "ADMIN MENU,Add Fortune,Remove Fortune,View Fortune(s),go back,"; // 2
+	string AboutProgramMenu = "ABOUT PROGRAM,This Program is your program,this program is my program,this program was made for you and me,go back,"; //3
 
 	if (menuNum == 0) {
 		menu = mainMenu;
 	}
 	else if (menuNum == 1) {
 		menu = ProfileMenu;
+		backMenu = false;
 	}
 	else if (menuNum == 2) {
 		menu = AdminMenu;
+		backMenu = false;
 	}
 	else if (menuNum == 3) {
 		menu = AboutProgramMenu;
+		backMenu = false;
 	}
 	else {
-		cout << "\n\t\t\tNo descriptive menu entered.\n\n\t\t\tProgram will now close.\n";
-		exit(0);
+		if (backMenu) {
+			menu = mainMenu;
+		}
+		else {
+			cout << "\n\t\t\tNo descriptive menu entered.\n\n\t\t\tProgram will now close.\n";
+			exit(0);
+		}
+
 	}
 
 	return menu;
@@ -63,13 +72,16 @@ string ProgramControls::errorMessages(int errNum) {
 string ProgramControls::iconSelector(int iconSelect) {
 	string iconSelected;
 	if (iconSelect == 1) {
-		iconSelected = "\n <:";
+		iconSelected = "\n [ ";
 	}
 	else if (iconSelect == 2) {
-		iconSelected = "\n ->";
+		iconSelected = "\n -> ";
+	}
+	else if (iconSelect == 3) {
+		iconSelected = "\n \\ ";
 	}
 	else {
-		iconSelected = "\n [";
+		iconSelected = "\n <: ";
 	}
 	return iconSelected;
 }
@@ -87,9 +99,17 @@ int ProgramControls::omitNumber(int intOmit) {
 //	return startingOption;
 //}
 
-string ProgramControls::replaceOmitNum() {
-	string numReplacement = "ZOINKS";
-	return numReplacement;
+string ProgramControls::replaceOmitNum(int replace) {
+	string numReplacement;
+
+	if (replace == 1) {
+		numReplacement = "ZOINKS:";
+		return numReplacement;
+	}
+	else {
+		numReplacement = "  ";
+		return numReplacement;
+	}
 }
 
 int ProgramControls::MaxChar(int MAX_CHAR_LIMIT) {
